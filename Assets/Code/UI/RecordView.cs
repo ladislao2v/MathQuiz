@@ -1,4 +1,5 @@
-﻿using Code.Services.ScoreService;
+﻿using Code.Services.RecordService;
+using Code.Services.ScoreService;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -9,22 +10,22 @@ namespace Code.UI
     {
         [SerializeField] private TextMeshProUGUI _recordText;
         
-        private IScoreService _scoreService;
+        private IRecordService _recordService;
 
         [Inject]
-        private void Construct(IScoreService scoreService)
+        private void Construct(IRecordService recordService)
         {
-            _scoreService = scoreService;
+            _recordService = recordService;
         }
 
         public void TurnOn()
         {
-            _recordText.text = _scoreService.Record.ToString();
+            //_recordText.text = _recordService.Record.ToString();
         }
 
         public void TurnOff()
         {
-            _recordText.text = _scoreService.Record.ToString();
+            //_recordText.text = _recordService.Record.ToString();
         }
     }
 }

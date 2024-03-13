@@ -1,40 +1,57 @@
 ﻿using System;
+using Code.Services.RecordService;
 using Code.Services.SaveLoadDataService;
 
 namespace Code.Services.ScoreService
 {
     public class ScoreService : IScoreService
     {
-        private int _score;
+        private readonly IRecordService _recordService;
         
-        public int Record { get; private set; }
+        private int _playerScore;
+        private int _enemyScore;
         
-        public event Action<int> ScoreChanged;
+        public event Action<int> PlayerScoreChanged;
+        public event Action<int> EnemyScoreChanged;
+        
+        public ScoreService(IRecordService recordService)
+        {
+            _recordService = recordService;
+        }
 
-        public void Add(int points)
+        public void AddPlayerScore(int points)
         {
             if (points < 0)
                 throw new ArgumentOutOfRangeException(nameof(points));
 
-            _score += points;
-            ScoreChanged?.Invoke(_score);
+            _playerScore += points;
+            
+            PlayerScoreChanged?.Invoke(_playerScore);
+        }
+
+        public void AddEnemyScore(int points)
+        {
+            if (points < 0)
+                throw new ArgumentOutOfRangeException(nameof(points));
+
+            _enemyScore += points;
+            
+            EnemyScoreChanged?.Invoke(_enemyScore);
         }
 
         public void Reset()
         {
-            Record += _score;
-            _score = 0;
-            ScoreChanged?.Invoke(_score);
-        }
-
-        public void LoadData(ISaveLoadDataService saveLoadDataService)
-        {
-            Record = saveLoadDataService.LoadByCustomKey<int?>(nameof(Record)).GetValueOrDefault();
-        }
-
-        public void SaveData(ISaveLoadDataService saveLoadDataService)
-        {
-            saveLoadDataService.SaveByCustomKey((int?)Record, nameof(Record));
+            IGameResult gameResult = 
+                new GameResult(_playerScore, _enemyScore);
+            
+            _recordService.Save(gameResult);
+            
+            _enemyScore = 0;
+            _playerScore = 0;
+            
+            
+            PlayerScoreChanged?.Invoke(_playerScore);
+            EnemyScoreChanged?.Invoke(_enemyScore);
         }
     }
 }

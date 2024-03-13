@@ -18,14 +18,11 @@ namespace Code.UI.Gameplay
 {
     public class GameplayOverlay : Overlay
     {
-        [SerializeField] private TextMeshProUGUI _levelText;
+        [SerializeField] private Image _levelLogo;
         [SerializeField] private Button _backButton;
         [SerializeField] private VariantView _variantView;
         [SerializeField] private VariantButton[] _variantButtons;
-        [SerializeField] private RecordView _recordView;
         [SerializeField] private ScoreView _scoreView;
-        [SerializeField] private SoundButton _soundButton;
-        [SerializeField] private GameObject _congratulationBar;
 
         private readonly WaitForSeconds _delay = new (1.25f);
 
@@ -62,9 +59,7 @@ namespace Code.UI.Gameplay
             foreach (var button in _variantButtons)
                 button.Subscribe(OnVariantButtonClicked);
             
-            _recordView.TurnOn();
             _scoreView.TurnOn();
-            _soundButton.TurnOn();
         }
 
         private void OnDisable()
@@ -74,17 +69,13 @@ namespace Code.UI.Gameplay
             foreach (var button in _variantButtons)
                 button.Unsubscribe(OnVariantButtonClicked);
             
-            _recordView.TurnOff();
             _scoreView.TurnOff();
-            _soundButton.TurnOff();
         }
 
-        public void Initialize(Question[] questions)
+        public void Initialize(Sprite logo, Question[] questions)
         {
-            _congratulationBar.SetActive(false);
-            
             _questions = questions;
-            _levelText.text = "Level " + _levelSelector.SelectedLevel;
+            _levelLogo.sprite = logo;
             _rightAnswers = 0;
             
             SetQuestion(_questions[0]);
@@ -98,7 +89,7 @@ namespace Code.UI.Gameplay
             int questionIndex = _questions.FindIndex(_currentQuestion);
 
             if (_answerCorrectnessService
-                .IsCorrectAnswer(answer, _currentQuestion.Answer.Name))
+                .IsCorrectAnswer(answer, _currentQuestion.Answer))
             {
                 _statsService.AddCorrect();
                 _rightAnswers++;
@@ -116,12 +107,12 @@ namespace Code.UI.Gameplay
             _currentQuestion = question;
             var sortedButtons = _variantButtons.SortRandomly();
 
-            sortedButtons[0].Construct(question.Answer.Name, true);
+            sortedButtons[0].Construct(question.Answer, true);
             
             for (int i = 1; i < sortedButtons.Length; i++)
-                sortedButtons[i].Construct(question.Other[i - 1].Name, false);
+                sortedButtons[i].Construct(question.Other[i - 1], false);
             
-            _variantView.SetData(question.Answer);
+            _variantView.SetData(question.Task);
         }
 
         private IEnumerator ResetOverlay(int questionIndex)
@@ -137,7 +128,7 @@ namespace Code.UI.Gameplay
                 _scoreService.Reset();
 
                 if(_rightAnswers == _questions.Length)
-                    _congratulationBar.SetActive(true);
+                    Debug.Log("тут будет смена стейта");
                 else
                     _stateMachine.Enter<SaveDataState>();
                 

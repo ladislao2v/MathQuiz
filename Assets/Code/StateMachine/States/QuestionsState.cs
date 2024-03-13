@@ -28,11 +28,13 @@ namespace Code.StateMachine.States
 
         private void SetQuestions()
         {
-            var questions = _staticDataService
-                .GetChampionship(_levelSelector.SelectedLevel)
-                .Questions;
+            var level = _staticDataService
+                .GetChampionship(_levelSelector.SelectedLevel);
 
-            _gameplayOverlay.Initialize(questions);
+            var logo = level.Logo;
+            var questions = level.Questions;
+
+            _gameplayOverlay.Initialize(logo, questions);
         }
 
         public void Exit()

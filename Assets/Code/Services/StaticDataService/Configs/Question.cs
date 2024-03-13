@@ -6,10 +6,12 @@ namespace Code.Services.StaticDataService.Configs
     [Serializable]
     public class Question
     {
-        [SerializeField] private VariantData _answer;
-        [SerializeField] private VariantData[] _otherVariants;
+        [SerializeField] private string _task;
+        [SerializeField] private string _answer;
+        [SerializeField] private string[] _otherVariants;
 
-        public VariantData Answer => _answer;
-        public VariantData[] Other => _otherVariants;
+        public string Task => _task;
+        public string Answer => _answer;
+        public string[] Other => _otherVariants;
     }
 }

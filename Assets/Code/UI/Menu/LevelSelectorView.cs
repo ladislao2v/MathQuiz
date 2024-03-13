@@ -1,39 +1,65 @@
-﻿using TMPro;
+﻿using System.Collections;
+using Code.Services.LevelSelectorService;
+using Code.StateMachine;
+using Code.StateMachine.States;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Zenject;
 
 namespace Code.UI.Menu
 {
     public class LevelSelectorView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _levelText;
-        [SerializeField] private Button _leftButton;
-        [SerializeField] private Button _rightButton;
-        [SerializeField] private GameObject _playButton;
-        [SerializeField] private GameObject _cross;
-        public Button LeftButton => _leftButton;
-        public Button RightButton => _rightButton;
+        [SerializeField] private LevelButton[] _levelButtons; 
+        [SerializeField] private GameObject[] _crosses;
+        
+        private ILevelSelector _levelSelector;
+        private IStateMachine _stateMachine;
+
+        [Inject]
+        public void Construct(ILevelSelector levelSelector, IStateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+            _levelSelector = levelSelector;
+        }
 
         public void SetCurrentLevel(int level, bool isOpen)
         {
-            _levelText.text = level + " Level";
-            
             if(isOpen)
-                MakeAvailable();
+                MakeAvailable(level);
             else
-                MakeNotAvailable();
+                MakeNotAvailable(level);
         }
 
-        private void MakeAvailable()
+        private void MakeAvailable(int level)
         {
-            _cross.SetActive(false);
-            _playButton.SetActive(true);
+            _crosses[level-1].SetActive(false);
         }
 
-        private void MakeNotAvailable()
+        private void MakeNotAvailable(int level)
         {
-            _cross.SetActive(true);
-            _playButton.SetActive(false);
+            _crosses[level-1].SetActive(true);
+        }
+
+        public void TurnOn()
+        {
+            foreach (var levelButton in _levelButtons)
+            {
+                levelButton.Clicked += OnLevelButtonClicked;
+                levelButton.TurnOn();
+            }
+        }
+
+        private void OnLevelButtonClicked(int index)
+        {
+            _levelSelector.Select(index);
+            _stateMachine.Enter<QuestionsState>();
+        }
+
+        public void TurnOff()
+        {
+            foreach (var levelButton in _levelButtons)
+                levelButton.TurnOff();
         }
     }
 }

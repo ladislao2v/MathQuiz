@@ -2,13 +2,15 @@
 using Code.Services.ScoreService;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Code.UI
 {
     public class ScoreView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _scoreText;
+        [SerializeField] private TextMeshProUGUI _playerScoreText;
+        [SerializeField] private TextMeshProUGUI _enemyScoreText;
         
         private IScoreService _scoreService;
 
@@ -20,22 +22,29 @@ namespace Code.UI
 
         public void Reset()
         {
-            _scoreText.text = 0.ToString();
+            _playerScoreText.text = 0.ToString();
         }
 
         public void TurnOn()
         {
-            _scoreService.ScoreChanged += OnScoreChanged;
+            _scoreService.PlayerScoreChanged += OnPlayerScoreChanged;
+            _scoreService.EnemyScoreChanged += OnEnemyScoreChanged;
         }
 
         public void TurnOff()
         {
-            _scoreService.ScoreChanged -= OnScoreChanged;
+            _scoreService.PlayerScoreChanged -= OnPlayerScoreChanged;
+            _scoreService.EnemyScoreChanged -= OnEnemyScoreChanged;
         }
 
-        private void OnScoreChanged(int score)
+        private void OnEnemyScoreChanged(int score)
         {
-            _scoreText.text = score.ToString();
+            _enemyScoreText.text = score.ToString();
+        }
+
+        private void OnPlayerScoreChanged(int score)
+        {
+            _playerScoreText.text = score.ToString();
         }
     }
 }

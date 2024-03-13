@@ -1,16 +1,15 @@
-﻿using Code.Services.StaticDataService.Configs;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Code.UI.Gameplay
 {
     public class VariantView : MonoBehaviour
     {
-        [SerializeField] private Image _image;
+        [SerializeField] private TextMeshProUGUI _taskText;
 
-        public void SetData(VariantData data)
+        public void SetData(string task)
         {
-            _image.sprite = data.Logo;
+            _taskText.text = task;
         }
     }
 }

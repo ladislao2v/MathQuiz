@@ -1,6 +1,7 @@
 ﻿using Code.Services.AudioService;
 using Code.Services.GameDataService;
 using Code.Services.LevelSelectorService;
+using Code.Services.RecordService;
 using Code.Services.ScoreService;
 using Code.Services.StatsService;
 using UnityEngine;
@@ -11,21 +12,21 @@ namespace Code.StateMachine.States
     {
         private readonly IStateMachine _stateMachine;
         private readonly IGameDataService _gameDataService;
-        private readonly IScoreService _scoreService;
+        private readonly IRecordService _recordService;
         private readonly ILevelSelector _levelSelector;
         private readonly IStatsService _statsService;
         private readonly IAudioService _audioService;
 
         public LoadDataState(IStateMachine stateMachine, 
             IGameDataService gameDataService, 
-            IScoreService scoreService,
+            IRecordService recordService,
             ILevelSelector levelSelector,
             IStatsService statsService,
             IAudioService audioService)
         {
             _stateMachine = stateMachine;
             _gameDataService = gameDataService;
-            _scoreService = scoreService;
+            _recordService = recordService;
             _levelSelector = levelSelector;
             _statsService = statsService;
             _audioService = audioService;
@@ -41,7 +42,7 @@ namespace Code.StateMachine.States
         private void Load()
         {
             _gameDataService.Add(_statsService);
-            _gameDataService.Add(_scoreService);
+            _gameDataService.Add(_recordService);
             _gameDataService.Add(_levelSelector);
             _gameDataService.Add(_audioService);
             _gameDataService.LoadData();

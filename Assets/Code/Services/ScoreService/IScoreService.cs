@@ -3,13 +3,13 @@ using Code.Services.SaveLoadDataService;
 
 namespace Code.Services.ScoreService
 {
-    public interface IScoreService : ILoadable, ISavable
+    public interface IScoreService
     {
-        public int Record { get;}
-        
-        event Action<int> ScoreChanged;
+        event Action<int> PlayerScoreChanged;
+        event Action<int> EnemyScoreChanged;
 
-        void Add(int points);
+        void AddPlayerScore(int points);
+        void AddEnemyScore(int points);
         void Reset();
     }
 }

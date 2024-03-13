@@ -10,13 +10,13 @@ namespace Code.Services.LevelSelectorService
     public class LevelSelector : ILevelSelector
     {
         public int SelectedLevel { get; private set; }
+        public int LevelCount => _availableLevels.Count;
         
         private Dictionary<int, bool> _availableLevels = new()
         {
             [1] = true,
             [2] = false,
-            [3] = false,
-            [4] = false,
+            [3] = false
         };
 
         public void Select(int levelIndex)

@@ -17,7 +17,7 @@ namespace Code.Services.AnswerCorrectnessService
         {
             if (answer == correctAnswer)
             {
-                _scoreService.Add(_levelSelector.SelectedLevel);
+                _scoreService.AddPlayerScore(_levelSelector.SelectedLevel);
                 return true;
             }
 
