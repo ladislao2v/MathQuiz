@@ -17,7 +17,7 @@ namespace Code
 
         private void Awake()
         {
-            _stateMachine.Enter<LoadDataState>();
+            _stateMachine.Enter<InitialState>();
         }
     }
 }

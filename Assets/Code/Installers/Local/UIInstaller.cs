@@ -1,6 +1,7 @@
 ﻿using Code.UI.Discription;
 using Code.UI.Gameplay;
 using Code.UI.Menu;
+using Code.UI.Options;
 using Code.UI.Stats;
 using UnityEngine;
 using Zenject;
@@ -11,15 +12,17 @@ namespace Code.Installers.Local
     {
         [SerializeField] private MenuOverlay _menu;
         [SerializeField] private GameplayOverlay _gameplayOverlay;
-        [SerializeField] private StatsOverlay _statsOverlay;
-        [SerializeField] private DiscriptionOverlay _discriptionOverlay;
+        [SerializeField] private RecordOverlay _recordOverlay;
+        [SerializeField] private PolicyOverlay _policyOverlay;
+        [SerializeField] private OptionsOverlay _optionsOverlay;
 
         public override void InstallBindings()
         {
             BindMenu();
             BindGameplayOverlay();
-            BindStatsOverlay();
-            BindDiscriptionOverlay();
+            BindRecordOverlay();
+            BindPolicyOverlay();
+            BindOptionsOverlay();
         }
 
         private void BindMenu() =>
@@ -34,16 +37,22 @@ namespace Code.Installers.Local
                 .FromInstance(_gameplayOverlay)
                 .AsSingle();
         
-        private void BindStatsOverlay() =>
+        private void BindRecordOverlay() =>
             Container
-                .Bind<StatsOverlay>()
-                .FromInstance(_statsOverlay)
+                .Bind<RecordOverlay>()
+                .FromInstance(_recordOverlay)
                 .AsSingle();
         
-        private void BindDiscriptionOverlay() =>
+        private void BindPolicyOverlay() =>
             Container
-                .Bind<DiscriptionOverlay>()
-                .FromInstance(_discriptionOverlay)
+                .Bind<PolicyOverlay>()
+                .FromInstance(_policyOverlay)
+                .AsSingle();
+        
+        private void BindOptionsOverlay() =>
+            Container
+                .Bind<OptionsOverlay>()
+                .FromInstance(_optionsOverlay)
                 .AsSingle();
     }
 }

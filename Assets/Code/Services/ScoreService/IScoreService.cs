@@ -8,8 +8,8 @@ namespace Code.Services.ScoreService
         event Action<int> PlayerScoreChanged;
         event Action<int> EnemyScoreChanged;
 
-        void AddPlayerScore(int points);
-        void AddEnemyScore(int points);
+        void AddPlayerScore(int points = 1);
+        void AddEnemyScore(int points = 1);
         void Reset();
     }
 }

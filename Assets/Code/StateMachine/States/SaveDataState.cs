@@ -22,7 +22,7 @@ namespace Code.StateMachine.States
             
             _sceneLoader.Restart();
             
-            _stateMachine.Enter<LoadDataState>();
+            _stateMachine.Enter<InitialState>();
         }
 
         public void Exit() { }

@@ -17,10 +17,12 @@ namespace Code.Services.AnswerCorrectnessService
         {
             if (answer == correctAnswer)
             {
-                _scoreService.AddPlayerScore(_levelSelector.SelectedLevel);
+                _scoreService.AddPlayerScore();
                 return true;
             }
-
+            
+            _scoreService.AddEnemyScore();
+            
             return false;
         }
     }
