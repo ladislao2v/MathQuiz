@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbcbc1063574df5a6e96cf19eb731c1, type: 3}
+  m_Name: Silver
+  m_EditorClassIdentifier: 
+  _level: 2
+  _name: Silver league
+  _logo: {fileID: 21300000, guid: ddc6b425f3fd640b3a50f1de1def936b, type: 3}
+  _questions:
+  - _task: 47+23=
+    _answer: 70
+    _otherVariants:
+    - 69
+    - 72
+  - _task: 85-37=
+    _answer: 48
+    _otherVariants:
+    - 46
+    - 40
+  - _task: 156+78=
+    _answer: 234
+    _otherVariants:
+    - 224
+    - 230
+  - _task: 213-94=
+    _answer: 119
+    _otherVariants:
+    - 114
+    - 108
+  - _task: 62+39=
+    _answer: 101
+    _otherVariants:
+    - 100
+    - 98
+  - _task: 49-27=
+    _answer: 22
+    _otherVariants:
+    - 20
+    - 18
+  - _task: 35+29=
+    _answer: 64
+    _otherVariants:
+    - 60
+    - 55
+  - _task: 74-23=
+    _answer: 51
+    _otherVariants:
+    - 48
+    - 45
+  - _task: 56+37=
+    _answer: 93
+    _otherVariants:
+    - 90
+    - 88
+  - _task: 29-12=
+    _answer: 17
+    _otherVariants:
+    - 15
+    - 10
+  - _task: 23+19=
+    _answer: 42
+    _otherVariants:
+    - 40
+    - 38
+  - _task: 38-15=
+    _answer: 23
+    _otherVariants:
+    - 20
+    - 18
+  - _task: 52+49=
+    _answer: 101
+    _otherVariants:
+    - 100
+    - 98
+  - _task: 65-32=
+    _answer: 33
+    _otherVariants:
+    - 30
+    - 28
+  - _task: 37+48=
+    _answer: 85
+    _otherVariants:
+    - 80
+    - 75
+  - _task: 86-54=
+    _answer: 32
+    _otherVariants:
+    - 30
+    - 28
+  - _task: 74+29=
+    _answer: 103
+    _otherVariants:
+    - 100
+    - 98
+  - _task: 48-17=
+    _answer: 31
+    _otherVariants:
+    - 28
+    - 25
+  - _task: 68+37=
+    _answer: 105
+    _otherVariants:
+    - 100
+    - 95
+  - _task: 92-49=
+    _answer: 43
+    _otherVariants:
+    - 40
+    - 35

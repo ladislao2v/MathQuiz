@@ -23,6 +23,7 @@ namespace Code.UI
         public void Reset()
         {
             _playerScoreText.text = 0.ToString();
+            _enemyScoreText.text = 0.ToString();
         }
 
         public void TurnOn()

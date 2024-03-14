@@ -56,7 +56,7 @@ namespace Code.UI
             for (int i = 0; i < count; i++)
             {
                 _active[i].Construct(i + 1,
-                    _levelNames[_recordService.Results[i].Level],
+                    _levelNames[_recordService.Results[i].Level - 1],
                     _recordService.Results[i].PlayerScore,
                     _recordService.Results[i].EnemyScore);
                 

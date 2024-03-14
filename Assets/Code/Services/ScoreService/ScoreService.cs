@@ -42,6 +42,12 @@ namespace Code.Services.ScoreService
             EnemyScoreChanged?.Invoke(_enemyScore);
         }
 
+        public void Update()
+        {
+            PlayerScoreChanged?.Invoke(_playerScore);
+            EnemyScoreChanged?.Invoke(_enemyScore);
+        }
+
         public void Reset()
         {
             IGameResult gameResult = 
@@ -53,8 +59,7 @@ namespace Code.Services.ScoreService
             _playerScore = 0;
             
             
-            PlayerScoreChanged?.Invoke(_playerScore);
-            EnemyScoreChanged?.Invoke(_enemyScore);
+            Update();
         }
 
         public bool IsPlayerWin()
@@ -62,8 +67,7 @@ namespace Code.Services.ScoreService
             if (_playerScore == _enemyScore)
                 AddPlayerScore();
             
-            PlayerScoreChanged?.Invoke(_playerScore);
-            EnemyScoreChanged?.Invoke(_enemyScore);
+            Update();
 
             var isWin = _playerScore > _enemyScore;
             

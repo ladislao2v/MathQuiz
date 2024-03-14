@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbcbc1063574df5a6e96cf19eb731c1, type: 3}
+  m_Name: Bronze
+  m_EditorClassIdentifier: 
+  _level: 1
+  _name: Bronze league
+  _logo: {fileID: 21300000, guid: 3973605476e9448d28394f0d50751d4e, type: 3}
+  _questions:
+  - _task: 3+5=
+    _answer: 8
+    _otherVariants:
+    - 6
+    - 7
+  - _task: 9+2=
+    _answer: 11
+    _otherVariants:
+    - 10
+    - 12
+  - _task: 6+4=
+    _answer: 10
+    _otherVariants:
+    - 9
+    - 11
+  - _task: 2+7=
+    _answer: 9
+    _otherVariants:
+    - 8
+    - 10
+  - _task: 1+9=
+    _answer: 10
+    _otherVariants:
+    - 9
+    - 11
+  - _task: 8+3=
+    _answer: 11
+    _otherVariants:
+    - 10
+    - 12
+  - _task: 4+6=
+    _answer: 10
+    _otherVariants:
+    - 9
+    - 11
+  - _task: 5+5=
+    _answer: 10
+    _otherVariants:
+    - 9
+    - 11
+  - _task: 7+2=
+    _answer: 9
+    _otherVariants:
+    - 8
+    - 10
+  - _task: 0+10=
+    _answer: 10
+    _otherVariants:
+    - 9
+    - 10
+  - _task: 10-3=
+    _answer: 7
+    _otherVariants:
+    - 6
+    - 5
+  - _task: 8-2=
+    _answer: 6
+    _otherVariants:
+    - 5
+    - 4
+  - _task: 15-7=
+    _answer: 8
+    _otherVariants:
+    - 7
+    - 6
+  - _task: 12-5=
+    _answer: 7
+    _otherVariants:
+    - 6
+    - 4
+  - _task: 9-4=
+    _answer: 5
+    _otherVariants:
+    - 6
+    - 4
+  - _task: 20-9=
+    _answer: 11
+    _otherVariants:
+    - 10
+    - 8
+  - _task: 16-8=
+    _answer: 8
+    _otherVariants:
+    - 7
+    - 6
+  - _task: 25-12=
+    _answer: 13
+    _otherVariants:
+    - 11
+    - 10
+  - _task: 18-6=
+    _answer: 12
+    _otherVariants:
+    - 11
+    - 9
+  - _task: 30-15=
+    _answer: 15
+    _otherVariants:
+    - 16
+    - 13

@@ -10,6 +10,7 @@ namespace Code.Services.ScoreService
 
         void AddPlayerScore(int points = 1);
         void AddEnemyScore(int points = 1);
+        void Update();
         void Reset();
         bool IsPlayerWin();
     }

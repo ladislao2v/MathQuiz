@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Code.Extensions;
 using Code.Services.AnswerCorrectnessService;
 using Code.Services.CoroutineRunner;
@@ -12,7 +11,6 @@ using Code.Services.TimerService;
 using Code.StateMachine;
 using Code.StateMachine.States;
 using Code.UI.Menu;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -28,6 +26,9 @@ namespace Code.UI.Gameplay
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private TimerView _timerView;
         [SerializeField] private HalfEndView _halfEndView;
+        [SerializeField] private ResultView _resultView;
+        [SerializeField] private PauseButton _pauseButton;
+        [SerializeField] private PauseView _pauseView;
 
         private readonly WaitForSeconds _delay = new (1.25f);
 
@@ -42,7 +43,8 @@ namespace Code.UI.Gameplay
         private IScoreService _scoreService;
         private ITimer _timer;
         private int _half = 1;
-        private ResultView _resultView;
+        private IPauseService _pauseService;
+
 
         [Inject]
         public void Construct(IStateMachine stateMachine, 
@@ -51,8 +53,10 @@ namespace Code.UI.Gameplay
             IAnswerCorrectnessService answerCorrectnessService,
             IScoreService scoreService,
             IStatsService statsService,
-            ITimer timer)
+            ITimer timer,
+            IPauseService pauseService)
         {
+            _pauseService = pauseService;
             _timer = timer;
             _scoreService = scoreService;
             _statsService = statsService;
@@ -64,8 +68,15 @@ namespace Code.UI.Gameplay
 
         private void OnEnable()
         {
+            _pauseView.TurnOn();
+            _resultView.TurnOn();
+            _halfEndView.TurnOn();
             _backButton.onClick.AddListener(OnBackButtonClick);
             _halfEndView.NextHalf.onClick.AddListener(OnNextHalf);
+            _pauseView.ContinueButton.onClick.AddListener(OnContinue);
+            _pauseView.RestartButton.onClick.AddListener(OnRestart);
+            _pauseView.ExitButton.onClick.AddListener(OnExit);
+            _pauseButton.Subscribe(OnPause);
             
             foreach (var button in _variantButtons)
                 button.Subscribe(OnVariantButtonClicked);
@@ -77,13 +88,27 @@ namespace Code.UI.Gameplay
 
         private void OnDisable()
         {
+            _pauseView.TurnOff();
+            _resultView.TurnOff();
+            _halfEndView.TurnOff();
             _backButton.onClick.RemoveListener(OnBackButtonClick);
             _halfEndView.NextHalf.onClick.RemoveListener(OnNextHalf);
+            _pauseView.ContinueButton.onClick.RemoveListener(OnContinue);
+            _pauseView.RestartButton.onClick.RemoveListener(OnRestart);
+            _pauseView.ExitButton.onClick.RemoveListener(OnExit);
+            _pauseButton.Unsubscribe(OnPause);
             
             foreach (var button in _variantButtons)
                 button.Unsubscribe(OnVariantButtonClicked);
             
             _scoreView.TurnOff();
+        }
+
+        private void OnPause()
+        {
+            _pauseService.Pause();
+            _pauseView.Show();
+            _scoreService.Update();
         }
 
         public void Initialize(Sprite logo, Question[] questions)
@@ -154,6 +179,22 @@ namespace Code.UI.Gameplay
             SetQuestion(_questions[++questionIndex]);
         }
 
+        private void OnContinue()
+        {
+            _pauseService.Resume();
+            _pauseView.Hide();
+        }
+        
+        private void OnRestart()
+        {
+            _stateMachine.Enter<QuestionsState>();
+        }
+
+        private void OnExit()
+        {
+            _stateMachine.Enter<SaveDataState>();
+        }
+
         private void OnTimeOut()
         {
             _half++;
@@ -163,10 +204,12 @@ namespace Code.UI.Gameplay
                 var isWin = _scoreService.IsPlayerWin();
                 _resultView.Construct(isWin);
                 _resultView.Show();
+                _scoreService.Update();
             }
-
+            
             _timerView.Construct(_half);
             _halfEndView.Show();
+            _scoreService.Update();
         }
 
         private void OnNextHalf()

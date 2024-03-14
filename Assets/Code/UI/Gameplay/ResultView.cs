@@ -29,16 +29,16 @@ namespace Code.UI.Gameplay
                 _lose.enabled = true;
         }
 
-        private void OnEnable()
+        public void TurnOn()
         {
             _scoreView.TurnOn();
             _button.onClick.AddListener(OnMenu);
         }
 
-        private void OnDisable()
+        public void TurnOff()
         {
-            _scoreView.TurnOff();
             _button.onClick.RemoveListener(OnMenu);
+            _scoreView.TurnOff();
         }
 
         private void OnMenu()

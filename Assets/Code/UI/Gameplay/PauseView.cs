@@ -1,13 +1,16 @@
-﻿using Code.UI.Menu;
+
+using Code.UI.Menu;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Code.UI.Gameplay
 {
-    public class HalfEndView : Overlay
+    public class PauseView : Overlay
     {
         [SerializeField] private ScoreView _scoreView;
-        [field: SerializeField] public Button NextHalf { get; private set; }
+        [field: SerializeField] public Button RestartButton;
+        [field: SerializeField] public Button ContinueButton;
+        [field: SerializeField] public Button ExitButton;
 
         public void TurnOn()
         {

@@ -6,16 +6,16 @@ namespace Code.UI.Gameplay
 {
     public class PauseButton : MonoBehaviour
     {
-        [SerializeField] private Toggle _toggle;
+        [SerializeField] private Button _button;
 
-        public void Subscribe(UnityAction<bool> unityAction)
+        public void Subscribe(UnityAction unityAction)
         {
-            _toggle.onValueChanged.AddListener(unityAction);
+            _button.onClick.AddListener(unityAction);
         }
 
-        public void Unsubscribe(UnityAction<bool> unityAction)
+        public void Unsubscribe(UnityAction unityAction)
         {
-            _toggle.onValueChanged.AddListener(unityAction);
+            _button.onClick.AddListener(unityAction);
         }
     }
 }
