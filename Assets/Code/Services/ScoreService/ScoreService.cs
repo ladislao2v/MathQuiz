@@ -56,5 +56,19 @@ namespace Code.Services.ScoreService
             PlayerScoreChanged?.Invoke(_playerScore);
             EnemyScoreChanged?.Invoke(_enemyScore);
         }
+
+        public bool IsPlayerWin()
+        {
+            if (_playerScore == _enemyScore)
+                AddPlayerScore();
+            
+            PlayerScoreChanged?.Invoke(_playerScore);
+            EnemyScoreChanged?.Invoke(_enemyScore);
+
+            var isWin = _playerScore > _enemyScore;
+            
+            Reset();
+            return isWin;
+        }
     }
 }

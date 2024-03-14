@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Code.Extensions;
 using Code.Services.AnswerCorrectnessService;
 using Code.Services.CoroutineRunner;
 using Code.Services.LevelSelectorService;
+using Code.Services.PauseService;
 using Code.Services.ScoreService;
 using Code.Services.StaticDataService.Configs;
 using Code.Services.StatsService;
+using Code.Services.TimerService;
 using Code.StateMachine;
 using Code.StateMachine.States;
 using Code.UI.Menu;
@@ -23,6 +26,8 @@ namespace Code.UI.Gameplay
         [SerializeField] private VariantView _variantView;
         [SerializeField] private VariantButton[] _variantButtons;
         [SerializeField] private ScoreView _scoreView;
+        [SerializeField] private TimerView _timerView;
+        [SerializeField] private HalfEndView _halfEndView;
 
         private readonly WaitForSeconds _delay = new (1.25f);
 
@@ -35,6 +40,9 @@ namespace Code.UI.Gameplay
         private IStatsService _statsService;
         private int _rightAnswers;
         private IScoreService _scoreService;
+        private ITimer _timer;
+        private int _half = 1;
+        private ResultView _resultView;
 
         [Inject]
         public void Construct(IStateMachine stateMachine, 
@@ -42,8 +50,10 @@ namespace Code.UI.Gameplay
             ILevelSelector levelSelector,
             IAnswerCorrectnessService answerCorrectnessService,
             IScoreService scoreService,
-            IStatsService statsService)
+            IStatsService statsService,
+            ITimer timer)
         {
+            _timer = timer;
             _scoreService = scoreService;
             _statsService = statsService;
             _levelSelector = levelSelector;
@@ -55,16 +65,20 @@ namespace Code.UI.Gameplay
         private void OnEnable()
         {
             _backButton.onClick.AddListener(OnBackButtonClick);
+            _halfEndView.NextHalf.onClick.AddListener(OnNextHalf);
             
             foreach (var button in _variantButtons)
                 button.Subscribe(OnVariantButtonClicked);
             
             _scoreView.TurnOn();
+            _timer.Ticked += _timerView.Render;
+            _timer.TimeOut += OnTimeOut;
         }
 
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(OnBackButtonClick);
+            _halfEndView.NextHalf.onClick.RemoveListener(OnNextHalf);
             
             foreach (var button in _variantButtons)
                 button.Unsubscribe(OnVariantButtonClicked);
@@ -79,6 +93,8 @@ namespace Code.UI.Gameplay
             _rightAnswers = 0;
             
             SetQuestion(_questions[0]);
+            _timerView.Construct(_half);
+            _timer.Start();
         }
 
         private void OnVariantButtonClicked(string answer)
@@ -133,9 +149,30 @@ namespace Code.UI.Gameplay
                     _stateMachine.Enter<SaveDataState>();
                 
                 yield break;
-            }
+            } 
             
             SetQuestion(_questions[++questionIndex]);
+        }
+
+        private void OnTimeOut()
+        {
+            _half++;
+
+            if (_half == 3)
+            {
+                var isWin = _scoreService.IsPlayerWin();
+                _resultView.Construct(isWin);
+                _resultView.Show();
+            }
+
+            _timerView.Construct(_half);
+            _halfEndView.Show();
+        }
+
+        private void OnNextHalf()
+        {
+            _halfEndView.Hide();
+            _timer.Start();
         }
 
         private void OnBackButtonClick()

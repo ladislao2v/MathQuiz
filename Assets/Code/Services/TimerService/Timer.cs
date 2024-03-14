@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Code.Services.TimerService
 {
-    public class Timer : ITimer, IPausable
+    public class Timer : ITimer
     {
         private int _time = 60;
 
