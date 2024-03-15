@@ -166,10 +166,10 @@ namespace Code.UI.Gameplay
             if (_questions.FindIndex(_currentQuestion) == _questions.Length - 1)
             {
                 _levelSelector.OpenNextLevelTo(_levelSelector.SelectedLevel);
-                _scoreService.Reset();
+                //_scoreService.Reset();
 
                 if(_rightAnswers == _questions.Length)
-                    Debug.Log("тут будет смена стейта");
+                    Finish();
                 else
                     _stateMachine.Enter<SaveDataState>();
                 
@@ -201,15 +201,21 @@ namespace Code.UI.Gameplay
 
             if (_half == 3)
             {
-                var isWin = _scoreService.IsPlayerWin();
-                _resultView.Construct(isWin);
-                _resultView.Show();
-                _scoreService.Update();
+                Finish();
             }
             
             _timerView.Construct(_half);
             _halfEndView.Show();
             _scoreService.Update();
+        }
+
+        private void Finish()
+        {
+            var isWin = _scoreService.IsPlayerWin();
+            _resultView.Construct(isWin);
+            _resultView.Show();
+            _scoreService.Update();
+            _levelSelector.OpenNextLevelTo(_levelSelector.SelectedLevel);
         }
 
         private void OnNextHalf()

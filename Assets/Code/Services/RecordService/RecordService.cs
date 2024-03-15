@@ -20,9 +20,16 @@ namespace Code.Services.RecordService
         { 
             var results = saveLoadDataService
                 .LoadByCustomKey<List<GameResult>>(nameof(Results));
+
+            if (results == null)
+                return;
+
+            _results.Clear();
             
-            if(results != null)
-                _results.AddRange(results);
+            foreach (var result in results)
+            {
+                _results.Add(result);
+            }
         }
 
         public void SaveData(ISaveLoadDataService saveLoadDataService)

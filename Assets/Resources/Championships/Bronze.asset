@@ -65,7 +65,7 @@ MonoBehaviour:
     _answer: 10
     _otherVariants:
     - 9
-    - 10
+    - 11
   - _task: 10-3=
     _answer: 7
     _otherVariants:

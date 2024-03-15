@@ -34,8 +34,7 @@ namespace Code.UI
             
             if (_active.Count == 0)
                 GenerateViews(_recordService.Results.Count);
-            
-            if(_active.Count < _recordService.Results.Count)
+            else if(_active.Count < _recordService.Results.Count)
                 GenerateViews(_recordService.Results.Count-_active.Count);
             
             InitializeViews(_recordService.Results.Count);
