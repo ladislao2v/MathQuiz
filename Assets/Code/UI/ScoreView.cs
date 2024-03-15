@@ -1,8 +1,6 @@
-﻿using System;
-using Code.Services.ScoreService;
+﻿using Code.Services.ScoreService;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Code.UI

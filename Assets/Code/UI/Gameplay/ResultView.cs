@@ -13,6 +13,7 @@ namespace Code.UI.Gameplay
         [SerializeField] private Image _lose;
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private Button _button;
+        
         private IStateMachine _stateMachine;
 
         [Inject]
@@ -40,8 +41,8 @@ namespace Code.UI.Gameplay
             _button.onClick.RemoveListener(OnMenu);
             _scoreView.TurnOff();
         }
-
-        private void OnMenu()
+        
+        private void OnMenu() 
         {
             _stateMachine.Enter<SaveDataState>();
         }

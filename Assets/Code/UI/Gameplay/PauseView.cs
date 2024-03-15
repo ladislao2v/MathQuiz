@@ -15,6 +15,7 @@ namespace Code.UI.Gameplay
         public void TurnOn()
         {
             _scoreView.TurnOn();
+            _scoreView.Reset();
         }
 
         public void TurnOff()

@@ -5,6 +5,9 @@ namespace Code.Services.ScoreService
 {
     public interface IScoreService
     {
+        int PlayerScore { get; }
+        int EnemyScore { get;  }
+        
         event Action<int> PlayerScoreChanged;
         event Action<int> EnemyScoreChanged;
 

@@ -15,6 +15,7 @@ namespace Code.UI.Menu
         [SerializeField] private Button _recordButton;
         [SerializeField] private Button _optionButton;
         [SerializeField] private Button _policyButton;
+        [SerializeField] private Button _exitButton;
         [SerializeField] private LevelMap _levelMap;
         [SerializeField] private LevelSelectorView _levelSelectorView;
 
@@ -35,6 +36,7 @@ namespace Code.UI.Menu
             _recordButton.onClick.AddListener(OnRecordButton);
             _policyButton.onClick.AddListener(OnPolicyButton);
             _optionButton.onClick.AddListener(OnOptionButton);
+            _exitButton.onClick.AddListener(OnExit);
             _levelSelectorView.TurnOn();
 
             for(int i = 1; i <= _levelSelector.LevelCount; i++)
@@ -47,7 +49,13 @@ namespace Code.UI.Menu
             _recordButton.onClick.RemoveListener(OnRecordButton);
             _policyButton.onClick.RemoveListener(OnPolicyButton);
             _optionButton.onClick.RemoveListener(OnOptionButton);
+            _exitButton.onClick.RemoveListener(OnExit);
             _levelSelectorView.TurnOff();
+        }
+
+        private void OnExit()
+        {
+            Application.Quit();
         }
 
         private void OnPlayButtonClicked()

@@ -12,6 +12,9 @@ namespace Code.Services.ScoreService
 
         private int _playerScore;
         private int _enemyScore;
+
+        public int PlayerScore => _playerScore;
+        public int EnemyScore => _enemyScore;
         
         public event Action<int> PlayerScoreChanged;
         public event Action<int> EnemyScoreChanged;
@@ -68,11 +71,8 @@ namespace Code.Services.ScoreService
                 AddPlayerScore();
             
             Update();
-
-            var isWin = _playerScore > _enemyScore;
             
-            Reset();
-            return isWin;
+            return _playerScore > _enemyScore;
         }
     }
 }

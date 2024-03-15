@@ -1691,6 +1691,7 @@ MonoBehaviour:
   _recordButton: {fileID: 1622936124}
   _optionButton: {fileID: 1960421198}
   _policyButton: {fileID: 1336753199}
+  _exitButton: {fileID: 937526747}
   _levelMap: {fileID: 936879621}
   _levelSelectorView: {fileID: 1547202486}
 --- !u!1 &519420028

@@ -84,6 +84,8 @@ namespace Code.UI.Gameplay
             _scoreView.TurnOn();
             _timer.Ticked += _timerView.Render;
             _timer.TimeOut += OnTimeOut;
+            
+            _scoreService.Reset();
         }
 
         private void OnDisable()
@@ -166,7 +168,7 @@ namespace Code.UI.Gameplay
             if (_questions.FindIndex(_currentQuestion) == _questions.Length - 1)
             {
                 _levelSelector.OpenNextLevelTo(_levelSelector.SelectedLevel);
-                //_scoreService.Reset();
+                _scoreService.Reset();
 
                 if(_rightAnswers == _questions.Length)
                     Finish();
@@ -202,6 +204,7 @@ namespace Code.UI.Gameplay
             if (_half == 3)
             {
                 Finish();
+                return;
             }
             
             _timerView.Construct(_half);
@@ -216,6 +219,7 @@ namespace Code.UI.Gameplay
             _resultView.Show();
             _scoreService.Update();
             _levelSelector.OpenNextLevelTo(_levelSelector.SelectedLevel);
+            _scoreService.Reset();
         }
 
         private void OnNextHalf()
