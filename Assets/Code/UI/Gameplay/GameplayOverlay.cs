@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using Code.Extensions;
 using Code.Services.AnswerCorrectnessService;
 using Code.Services.CoroutineRunner;
@@ -119,6 +119,7 @@ namespace Code.UI.Gameplay
             _levelLogo.sprite = logo;
             _rightAnswers = 0;
             _half = 1;
+            _scoreService.Reset();
             
             Show();
             
