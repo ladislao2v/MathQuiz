@@ -60,9 +60,6 @@ namespace Code.Services.ScoreService
             
             _enemyScore = 0;
             _playerScore = 0;
-            
-            
-            Update();
         }
 
         public bool IsPlayerWin()

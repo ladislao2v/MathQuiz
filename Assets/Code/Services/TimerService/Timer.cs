@@ -13,6 +13,7 @@ namespace Code.Services.TimerService
 
         private bool _isPaused;
         private ICoroutineRunner _coroutineRunner;
+        private Coroutine _ticking;
 
         public event Action<int> Ticked;
         public event Action TimeOut;
@@ -25,7 +26,10 @@ namespace Code.Services.TimerService
         
         public void Start()
         {
-            _coroutineRunner.StartCoroutine(Tick());
+            if (_ticking != null)
+                _coroutineRunner.StopCoroutine(_ticking);
+            
+            _ticking = _coroutineRunner.StartCoroutine(Tick());
         }
 
         private IEnumerator Tick()

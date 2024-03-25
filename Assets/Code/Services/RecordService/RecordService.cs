@@ -7,13 +7,18 @@ namespace Code.Services.RecordService
 {
     public class RecordService : IRecordService
     {
-        private readonly List<IGameResult> _results = new();
+        private readonly Dictionary<int, IGameResult> _results = new()
+        {
+            [1] = null,
+            [2] = null,
+            [3] = null
+        };
         
-        public IReadOnlyList<IGameResult> Results => _results;
+        public IReadOnlyList<IGameResult> Results => _results.Values.ToList();
 
         public void Save(IGameResult result)
         {
-            _results.Add(result);
+            _results[result.Level] = result;
         }
 
         public void LoadData(ISaveLoadDataService saveLoadDataService)
@@ -28,7 +33,7 @@ namespace Code.Services.RecordService
             
             foreach (var result in results)
             {
-                _results.Add(result);
+                _results[result.Level] = result;
             }
         }
 
@@ -36,9 +41,10 @@ namespace Code.Services.RecordService
         {
             List<GameResult> results = new();
             
-            foreach (var result in _results)
+            foreach (var pair in _results)
             {
-                results.Add((GameResult)result);
+                if(pair.Value != null)
+                    results.Add((GameResult)pair.Value);
             }
             
             saveLoadDataService

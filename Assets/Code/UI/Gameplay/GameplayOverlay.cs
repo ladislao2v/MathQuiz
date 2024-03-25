@@ -118,6 +118,9 @@ namespace Code.UI.Gameplay
             _questions = questions;
             _levelLogo.sprite = logo;
             _rightAnswers = 0;
+            _half = 1;
+            
+            Show();
             
             SetQuestion(_questions[0]);
             _timerView.Construct(_half);
@@ -189,9 +192,10 @@ namespace Code.UI.Gameplay
         
         private void OnRestart()
         {
-            _stateMachine.Enter<QuestionsState>();
             _resultView.Hide();
-            _pauseView.Hide();
+            _pauseView.Hide(); 
+            _pauseService.Resume();
+            _stateMachine.Enter<QuestionsState>();
         }
 
         private void OnExit()

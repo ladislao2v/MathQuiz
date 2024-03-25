@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Code.Services.RecordService;
-using Code.Services.ScoreService;
 using UnityEngine;
 using Zenject;
 
@@ -13,9 +12,9 @@ namespace Code.UI
 
         private Dictionary<int, string> _levelNames = new()
         {
-            [0] = "Bronze league",
-            [1] = "Silver league",
-            [2] = "Gold league",
+            [1] = "Bronze league",
+            [2] = "Silver league",
+            [3] = "Gold league",
         };
 
         private List<GameInfoView> _active = new();
@@ -31,13 +30,17 @@ namespace Code.UI
         {
             if(_recordService.Results.Count == 0)
                 return;
+            int count = 0;
             
-            if (_active.Count == 0)
-                GenerateViews(_recordService.Results.Count);
-            else if(_active.Count < _recordService.Results.Count)
-                GenerateViews(_recordService.Results.Count-_active.Count);
+            foreach (var gameResult in _recordService.Results)
+            {
+                if (gameResult != null)
+                    count++;
+            }
             
-            InitializeViews(_recordService.Results.Count);
+            GenerateViews(count);
+            
+            InitializeViews(count);
         }
 
         private void GenerateViews(int count)
@@ -55,7 +58,7 @@ namespace Code.UI
             for (int i = 0; i < count; i++)
             {
                 _active[i].Construct(i + 1,
-                    _levelNames[_recordService.Results[i].Level - 1],
+                    _levelNames[_recordService.Results[i].Level],
                     _recordService.Results[i].PlayerScore,
                     _recordService.Results[i].EnemyScore);
                 
