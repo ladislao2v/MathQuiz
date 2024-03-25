@@ -191,6 +191,7 @@ namespace Code.UI.Gameplay
         {
             _stateMachine.Enter<QuestionsState>();
             _resultView.Hide();
+            _pauseView.Hide();
         }
 
         private void OnExit()
