@@ -119,7 +119,7 @@ namespace Code.UI.Gameplay
             _levelLogo.sprite = logo;
             _rightAnswers = 0;
             _half = 1;
-            _scoreService.Reset();
+            _scoreService.Update();
             
             Show();
             
