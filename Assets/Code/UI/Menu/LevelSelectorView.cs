@@ -34,11 +34,13 @@ namespace Code.UI.Menu
         private void MakeAvailable(int level)
         {
             _crosses[level-1].SetActive(false);
+            _levelButtons[level - 1].Enable();
         }
 
         private void MakeNotAvailable(int level)
         {
             _crosses[level-1].SetActive(true);
+            _levelButtons[level - 1].Disable();
         }
 
         public void TurnOn()

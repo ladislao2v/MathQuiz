@@ -190,6 +190,7 @@ namespace Code.UI.Gameplay
         private void OnRestart()
         {
             _stateMachine.Enter<QuestionsState>();
+            _resultView.Hide();
         }
 
         private void OnExit()

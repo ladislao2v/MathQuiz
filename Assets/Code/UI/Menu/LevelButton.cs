@@ -25,5 +25,15 @@ namespace Code.UI.Menu
         {
             Clicked?.Invoke(_index);
         }
+
+        public void Enable()
+        {
+            _button.interactable = true;
+        }
+
+        public void Disable()
+        {
+            _button.interactable = false;
+        }
     }
 }
